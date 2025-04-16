@@ -103,3 +103,9 @@ function removeItem(index) {
     renderInventory();
 }
   
+function goToTracker() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    window.location.href = `tracker.html?id=${id}`;
+}
+  
