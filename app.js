@@ -7,7 +7,7 @@ const supabaseClient = createClient("https://gdltukuntekcrjclvwpn.supabase.co", 
 async function signUp() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const { error } = await supabase.auth.signUp({ email, password });
+  const { error } = await supabaseClient.auth.signUp({ email, password });
   if (error) alert(error.message);
   else alert('Check your email to confirm your account!');
 }
