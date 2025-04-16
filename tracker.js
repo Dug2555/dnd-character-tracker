@@ -17,7 +17,8 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('back-to-info').addEventListener('click', () => {
     window.location.href = `character.html?id=${id}`;
   });
-  document.getElementById('hp-current').value = data.hpCurrent || hpMax;
+  document.getElementById('hp-current').value = data.hpCurrent || data.hpMax || 0;
+  document.getElementById('hp-max-display').textContent = data.hpMax || 0;
 });
 
 async function updateHP() {

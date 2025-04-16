@@ -11,11 +11,14 @@
 
   <div id="hp-tracker">
     <h2>Hit Points</h2>
-    <div>
-      <label>Current HP: <input id="hp-current" type="number" /></label>
-      <button onclick="updateHP()">💾 Save</button>
-      <button onclick="resetHP()">🧰 Reset to Max</button>
-    </div>
+    <label>
+      HP:
+      <input id="hp-current" type="number" style="width: 60px;" />
+      / <span id="hp-max-display"></span>
+    </label>
+    <br />
+    <button onclick="updateHP()">💾 Save</button>
+    <button onclick="resetHP()">🧰 Reset to Max</button>
   </div>
 
   <div id="inventory-section">
