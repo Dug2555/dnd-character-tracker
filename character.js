@@ -7,7 +7,24 @@ window.addEventListener('DOMContentLoaded', async () => {
 
     document.getElementById('back-button').addEventListener('click', () => {
         window.location.href = "index.html";
-      });
+    });
+      
+    let inventory = data.inventory || [];
+
+    function renderInventory() {
+    const list = document.getElementById('inventory-list');
+    list.innerHTML = '';
+    inventory.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+        <strong>${item.name}</strong> (x${item.quantity})
+        <button onclick="removeItem(${index})">🗑️</button>
+        `;
+        list.appendChild(div);
+    });
+    }
+    
+    renderInventory();
       
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -51,9 +68,10 @@ async function saveCharacter() {
   const notes = document.getElementById('notes').value;
 
   const { error } = await supabase
-    .from('characters')
-    .update({ name, class: charClass, level, notes })
-    .eq('id', characterId);
+  .from('characters')
+  .update({ name, class: charClass, level, notes, inventory })
+  .eq('id', characterId);
+
 
   if (error) {
     alert('Error saving character.');
@@ -61,3 +79,22 @@ async function saveCharacter() {
     alert('Character updated!');
   }
 }
+
+function addItem() {
+    const name = document.getElementById('item-name').value.trim();
+    const quantity = parseInt(document.getElementById('item-qty').value);
+    if (!name || quantity < 1) return alert("Enter valid item and quantity");
+  
+    inventory.push({ name, quantity });
+    renderInventory();
+  
+    // Clear inputs
+    document.getElementById('item-name').value = '';
+    document.getElementById('item-qty').value = '';
+}
+  
+function removeItem(index) {
+    inventory.splice(index, 1);
+    renderInventory();
+}
+  
