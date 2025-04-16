@@ -51,6 +51,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('class').value = data.class;
   document.getElementById('level').value = data.level;
   document.getElementById('notes').value = data.notes;
+  document.getElementById('hp-max').value = data.hpMax || 0;
 });
 
 function renderInventory() {
@@ -72,10 +73,11 @@ async function saveCharacter() {
   const charClass = document.getElementById('class').value;
   const level = parseInt(document.getElementById('level').value);
   const notes = document.getElementById('notes').value;
+  const hpMax = parseInt(document.getElementById('hp-max').value);
 
   const { error } = await supabase
   .from('characters')
-  .update({ name, class: charClass, level, notes, inventory })
+  .update({ name, class: charClass, level, notes, hpMax })
   .eq('id', characterId);
 
 

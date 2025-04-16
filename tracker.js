@@ -1,6 +1,7 @@
 const supabase = window.supabase.createClient("https://gdltukuntekcrjclvwpn.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkbHR1a3VudGVrY3JqY2x2d3BuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NTUwNzYsImV4cCI6MjA2MDMzMTA3Nn0.u-soUjkX2Emt7LtX0cY4neHRMgzR9i_KnYWK7Sek_80");
 
-
+let characterId = null;
+let hpMax = 0;
 let inventory = [];
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -8,13 +9,26 @@ window.addEventListener('DOMContentLoaded', async () => {
   const { data, error } = await supabase.from('characters').select('*').eq('id', id).single();
   if (error) return alert('Character not found');
 
+  characterId = id;
+  hpMax = data.hpMax || 0;
   inventory = data.inventory || [];
   renderInventory();
 
   document.getElementById('back-to-info').addEventListener('click', () => {
     window.location.href = `character.html?id=${id}`;
   });
+  document.getElementById('hp-current').value = data.hpCurrent || hpMax;
 });
+
+async function updateHP() {
+    const currentHP = parseInt(document.getElementById('hp-current').value);
+    await supabase.from('characters').update({ hpCurrent: currentHP }).eq('id', characterId);
+}
+  
+async function resetHP() {
+    document.getElementById('hp-current').value = hpMax;
+    await supabase.from('characters').update({ hpCurrent: hpMax }).eq('id', characterId);
+}
 
 function renderInventory() {
   const container = document.getElementById('inventory-list');
