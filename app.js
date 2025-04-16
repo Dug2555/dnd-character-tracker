@@ -20,6 +20,7 @@ async function signIn() {
   else {
     document.getElementById('auth').style.display = 'none';
     document.getElementById('character-form').style.display = 'block';
+    await loadCharacters();
   }
 }
 
@@ -39,4 +40,66 @@ async function saveCharacter() {
   const { error } = await supabaseClient.from('characters').insert(character);
   if (error) alert(error.message);
   else alert('Character saved!');
+  await loadCharacters();
 }
+
+async function loadCharacters() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) return;
+  
+    const { data, error } = await supabaseClient
+      .from('characters')
+      .select('*')
+      .eq('user_id', user.id);
+  
+    const listDiv = document.getElementById('character-list');
+    listDiv.innerHTML = ''; // Clear old content
+  
+    if (error) {
+      listDiv.innerText = 'Error loading characters';
+      return;
+    }
+  
+    data.forEach((char) => {
+      const div = document.createElement('div');
+      div.classList.add('character-card');
+      div.innerHTML = `
+        <strong>${char.name}</strong> (Level ${char.level} ${char.class})<br/>
+        <em>${char.notes || ''}</em><br/>
+        <button onclick="printCharacter(${char.id})">🖨️ Print</button>
+      `;
+      listDiv.appendChild(div);
+    });
+  }
+
+  async function printCharacter(charId) {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+  
+    const { data, error } = await supabaseClient
+      .from('characters')
+      .select('*')
+      .eq('user_id', user.id)
+      .eq('id', charId)
+      .single();
+  
+    if (error || !data) {
+      alert('Character not found');
+      return;
+    }
+  
+    const popup = window.open('', '', 'width=600,height=600');
+    popup.document.write(`
+      <html>
+        <head><title>${data.name}</title></head>
+        <body>
+          <h1>${data.name}</h1>
+          <p><strong>Class:</strong> ${data.class}</p>
+          <p><strong>Level:</strong> ${data.level}</p>
+          <p><strong>Notes:</strong><br/>${data.notes.replace(/\n/g, '<br/>')}</p>
+          <script>window.print()</script>
+        </body>
+      </html>
+    `);
+    popup.document.close();
+  }
+  
