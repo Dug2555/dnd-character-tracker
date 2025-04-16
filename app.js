@@ -3,6 +3,23 @@
 const { createClient } = supabase;
 const supabaseClient = createClient("https://gdltukuntekcrjclvwpn.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkbHR1a3VudGVrY3JqY2x2d3BuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NTUwNzYsImV4cCI6MjA2MDMzMTA3Nn0.u-soUjkX2Emt7LtX0cY4neHRMgzR9i_KnYWK7Sek_80");
 
+
+window.addEventListener('DOMContentLoaded', async () => {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+  
+    if (session) {
+      // Logged in — show character list
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('character-form').style.display = 'block';
+  
+      await loadCharacters();
+    } else {
+      // Not logged in — show login form
+      document.getElementById('auth').style.display = 'block';
+      document.getElementById('character-form').style.display = 'none';
+    }
+  });
+
 // Auth
 async function signUp() {
   const email = document.getElementById('email').value;
@@ -70,4 +87,9 @@ async function loadCharacters() {
         `;
       listDiv.appendChild(div);
     });
+  }
+
+  async function logout() {
+    await supabaseClient.auth.signOut();
+    window.location.reload(); // Reload to reset the UI
   }
