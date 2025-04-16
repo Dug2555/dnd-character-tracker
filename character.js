@@ -4,6 +4,12 @@ let characterId = null;
 
 // Get character ID from URL
 window.addEventListener('DOMContentLoaded', async () => {
+
+    document.getElementById('back-button').addEventListener('click', () => {
+        window.location.href = "index.html";
+      });
+      
+
   const urlParams = new URLSearchParams(window.location.search);
   characterId = urlParams.get('id');
   if (!characterId) {
@@ -55,8 +61,3 @@ async function saveCharacter() {
     alert('Character updated!');
   }
 }
-
-function goBack() {
-    window.location.href = "index.html";
-  }
-  
