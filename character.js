@@ -55,6 +55,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 function renderInventory() {
     const list = document.getElementById('inventory-list');
+    if (!list) return; // Skip rendering if this page doesn't have it
     list.innerHTML = '';
     inventory.forEach((item, index) => {
         const div = document.createElement('div');
