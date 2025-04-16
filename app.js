@@ -1,6 +1,7 @@
 // Initialize Supabase
 
-const supabase = supabase.createClient("https://gdltukuntekcrjclvwpn.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkbHR1a3VudGVrY3JqY2x2d3BuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NTUwNzYsImV4cCI6MjA2MDMzMTA3Nn0.u-soUjkX2Emt7LtX0cY4neHRMgzR9i_KnYWK7Sek_80");
+const { createClient } = supabase;
+const supabaseClient = createClient("https://gdltukuntekcrjclvwpn.supabase.co", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdkbHR1a3VudGVrY3JqY2x2d3BuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NTUwNzYsImV4cCI6MjA2MDMzMTA3Nn0.u-soUjkX2Emt7LtX0cY4neHRMgzR9i_KnYWK7Sek_80");
 
 // Auth
 async function signUp() {
@@ -14,7 +15,7 @@ async function signUp() {
 async function signIn() {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
   if (error) alert(error.message);
   else {
     document.getElementById('auth').style.display = 'none';
@@ -24,7 +25,7 @@ async function signIn() {
 
 // Save character
 async function saveCharacter() {
-  const user = await supabase.auth.getUser();
+  const user = await supabaseClient.auth.getUser();
   const userId = user.data.user.id;
 
   const character = {
@@ -35,7 +36,7 @@ async function saveCharacter() {
     notes: document.getElementById('charNotes').value
   };
 
-  const { error } = await supabase.from('characters').insert(character);
+  const { error } = await supabaseClient.from('characters').insert(character);
   if (error) alert(error.message);
   else alert('Character saved!');
 }
