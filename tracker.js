@@ -17,14 +17,19 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('back-to-info').addEventListener('click', () => {
     window.location.href = `character.html?id=${id}`;
   });
+  document.getElementById('hp-temp').value = data.tempHp || 0;
   document.getElementById('hp-current').value = data.hpCurrent || data.hpMax || 0;
   document.getElementById('hp-max-display').textContent = data.hpMax || 0;
 });
 
 async function updateHP() {
     const currentHP = parseInt(document.getElementById('hp-current').value);
-    await supabase.from('characters').update({ hpCurrent: currentHP }).eq('id', characterId);
-}
+    const tempHP = parseInt(document.getElementById('hp-temp').value);
+    await supabase.from('characters').update({
+      hpCurrent: currentHP,
+      tempHp: tempHP
+    }).eq('id', characterId);
+  }
   
 async function resetHP() {
     document.getElementById('hp-current').value = hpMax;
