@@ -83,7 +83,8 @@ async function loadCharacters() {
       div.innerHTML = `
         <strong>${char.name}</strong> (Level ${char.level} ${char.class})<br/>
         <em>${char.notes || ''}</em><br/>
-        <a href="character.html?id=${char.id}"><button>🧙 Open Tracker</button></a>
+        <a href="character.html?id=${char.id}"><button>⚙️ Open Editor</button></a>
+        <a href="tracker.html?id=${char.id}"><button>⚔️ Open Player</button></a>
         `;
       listDiv.appendChild(div);
     });
