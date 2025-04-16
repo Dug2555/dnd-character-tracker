@@ -10,45 +10,42 @@ window.addEventListener('DOMContentLoaded', async () => {
         window.location.href = "index.html";
     });
       
+    const urlParams = new URLSearchParams(window.location.search);
+    const { data: { user } } = await supabase.auth.getUser();
+    // Load character data
+    const { data, error } = await supabase
+    .from('characters')
+    .select('*')
+    .eq('user_id', user.id)
+    .eq('id', characterId)
+    .single();
     let inventory = data.inventory || [];
 
     function renderInventory() {
-    const list = document.getElementById('inventory-list');
-    list.innerHTML = '';
-    inventory.forEach((item, index) => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-        <strong>${item.name}</strong> (x${item.quantity})
-        <button onclick="removeItem(${index})">🗑️</button>
-        `;
-        list.appendChild(div);
-    });
+        const list = document.getElementById('inventory-list');
+        list.innerHTML = '';
+        inventory.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.innerHTML = `
+            <strong>${item.name}</strong> (x${item.quantity})
+            <button onclick="removeItem(${index})">🗑️</button>
+            `;
+            list.appendChild(div);
+        });
     }
-    
     renderInventory();
       
-
-  const urlParams = new URLSearchParams(window.location.search);
   characterId = urlParams.get('id');
   if (!characterId) {
     alert('Missing character ID.');
     return;
   }
 
-  const { data: { user } } = await supabase.auth.getUser();
   if (!user) {
     alert("Please log in to view this character.");
     window.location.href = "index.html";
     return;
   }
-
-  // Load character data
-  const { data, error } = await supabase
-    .from('characters')
-    .select('*')
-    .eq('user_id', user.id)
-    .eq('id', characterId)
-    .single();
 
   if (error || !data) {
     alert('Character not found.');
