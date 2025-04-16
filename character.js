@@ -14,18 +14,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     const { data: { user } } = await supabase.auth.getUser();
     
 
-    function renderInventory() {
-        const list = document.getElementById('inventory-list');
-        list.innerHTML = '';
-        inventory.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.innerHTML = `
-            <strong>${item.name}</strong> (x${item.quantity})
-            <button onclick="removeItem(${index})">🗑️</button>
-            `;
-            list.appendChild(div);
-        });
-    }
+
     renderInventory();
       
 
@@ -63,6 +52,19 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('level').value = data.level;
   document.getElementById('notes').value = data.notes;
 });
+
+function renderInventory() {
+    const list = document.getElementById('inventory-list');
+    list.innerHTML = '';
+    inventory.forEach((item, index) => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+        <strong>${item.name}</strong> (x${item.quantity})
+        <button onclick="removeItem(${index})">🗑️</button>
+        `;
+        list.appendChild(div);
+    });
+}
 
 async function saveCharacter() {
   const name = document.getElementById('name').value;
