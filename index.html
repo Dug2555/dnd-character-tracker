@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D&D Character Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+  <h1>D&D 5e Character Tracker</h1>
+
+  <div id="auth">
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="signUp()">Sign Up</button>
+    <button onclick="signIn()">Sign In</button>
+  </div>
+
+  <div id="character-form" style="display:none;">
+    <input type="text" id="charName" placeholder="Character Name" />
+    <input type="text" id="charClass" placeholder="Class" />
+    <input type="number" id="charLevel" placeholder="Level" />
+    <textarea id="charNotes" placeholder="Notes"></textarea>
+    <button onclick="saveCharacter()">Save Character</button>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
