@@ -8,14 +8,22 @@
     body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
     input, textarea { width: 100%; margin-bottom: 1rem; padding: 0.5rem; font-size: 1rem; }
     button { padding: 0.5rem 1rem; font-size: 1rem; }
+    button {
+    cursor: pointer;
+    }
+
+    button:hover {
+    background-color: #f0f0f0;
+    }
   </style>
 </head>
 <body>
-  <h1>Edit Character</h1>
-  <input id="name" placeholder="Name" />
-  <input id="class" placeholder="Class" />
-  <input id="level" type="number" placeholder="Level" />
-  <textarea id="notes" rows="10" placeholder="Notes"></textarea>
-  <button onclick="saveCharacter()">Save</button>
+    <button onclick="goBack()" style="margin-bottom: 1rem;">⬅ Back to My Characters</button>
+    <h1>Edit Character</h1>
+    <input id="name" placeholder="Name" />
+    <input id="class" placeholder="Class" />
+    <input id="level" type="number" placeholder="Level" />
+    <textarea id="notes" rows="10" placeholder="Notes"></textarea>
+    <button onclick="saveCharacter()">Save</button>
 </body>
 </html>

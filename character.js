@@ -55,3 +55,8 @@ async function saveCharacter() {
     alert('Character updated!');
   }
 }
+
+function goBack() {
+    window.location.href = "index.html";
+  }
+  
