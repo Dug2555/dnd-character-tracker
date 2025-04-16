@@ -1,8 +1,8 @@
-require('dotenv').config()
+import { config } from 'dotenv';
 
 // Initialize Supabase
 
-const supabase = supabase.createClient(process.env.SupaURL, process.env.SupaANON);
+const supabase = supabase.createClient(config().process.env.SupaURL, config().process.env.SupaANON);
 
 // Auth
 async function signUp() {
