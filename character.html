@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Character Tracker</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="character.js" defer></script>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+    input, textarea { width: 100%; margin-bottom: 1rem; padding: 0.5rem; font-size: 1rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Edit Character</h1>
+  <input id="name" placeholder="Name" />
+  <input id="class" placeholder="Class" />
+  <input id="level" type="number" placeholder="Level" />
+  <textarea id="notes" rows="10" placeholder="Notes"></textarea>
+  <button onclick="saveCharacter()">Save</button>
+</body>
+</html>

@@ -66,40 +66,8 @@ async function loadCharacters() {
       div.innerHTML = `
         <strong>${char.name}</strong> (Level ${char.level} ${char.class})<br/>
         <em>${char.notes || ''}</em><br/>
-        <button onclick="printCharacter(${char.id})">🖨️ Print</button>
-      `;
+        <a href="character.html?id=${char.id}"><button>🧙 Open Tracker</button></a>
+        `;
       listDiv.appendChild(div);
     });
   }
-
-  async function printCharacter(charId) {
-    const { data: { user } } = await supabaseClient.auth.getUser();
-  
-    const { data, error } = await supabaseClient
-      .from('characters')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('id', charId)
-      .single();
-  
-    if (error || !data) {
-      alert('Character not found');
-      return;
-    }
-  
-    const popup = window.open('', '', 'width=600,height=600');
-    popup.document.write(`
-      <html>
-        <head><title>${data.name}</title></head>
-        <body>
-          <h1>${data.name}</h1>
-          <p><strong>Class:</strong> ${data.class}</p>
-          <p><strong>Level:</strong> ${data.level}</p>
-          <p><strong>Notes:</strong><br/>${data.notes.replace(/\n/g, '<br/>')}</p>
-          <script>window.print()</script>
-        </body>
-      </html>
-    `);
-    popup.document.close();
-  }
-  
