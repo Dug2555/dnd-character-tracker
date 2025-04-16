@@ -14,8 +14,11 @@ window.addEventListener('DOMContentLoaded', async () => {
   inventory = data.inventory || [];
   renderInventory();
 
-  document.getElementById('back-to-info').addEventListener('click', () => {
+  document.getElementById('to-info').addEventListener('click', () => {
     window.location.href = `character.html?id=${id}`;
+  });
+  document.getElementById('back-to-characters').addEventListener('click', () => {
+    window.location.href = `index.html?id=${id}`;
   });
   document.getElementById('hp-temp').value = data.tempHp || 0;
   document.getElementById('hp-current').value = data.hpCurrent || data.hpMax || 0;
