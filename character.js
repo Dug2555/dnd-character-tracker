@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', async () => {
       
     const urlParams = new URLSearchParams(window.location.search);
     const { data: { user } } = await supabase.auth.getUser();
-    let inventory = data.inventory || [];
+    
 
     function renderInventory() {
         const list = document.getElementById('inventory-list');
@@ -51,6 +51,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     .eq('id', characterId)
     .single();
 
+    inventory = data.inventory || [];
   if (error || !data) {
     alert('Character not found.');
     return;
