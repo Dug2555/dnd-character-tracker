@@ -12,13 +12,6 @@ window.addEventListener('DOMContentLoaded', async () => {
       
     const urlParams = new URLSearchParams(window.location.search);
     const { data: { user } } = await supabase.auth.getUser();
-    // Load character data
-    const { data, error } = await supabase
-    .from('characters')
-    .select('*')
-    .eq('user_id', user.id)
-    .eq('id', characterId)
-    .single();
     let inventory = data.inventory || [];
 
     function renderInventory() {
@@ -35,17 +28,28 @@ window.addEventListener('DOMContentLoaded', async () => {
     }
     renderInventory();
       
+
+  
   characterId = urlParams.get('id');
   if (!characterId) {
     alert('Missing character ID.');
     return;
   }
 
+  
   if (!user) {
     alert("Please log in to view this character.");
     window.location.href = "index.html";
     return;
   }
+
+  // Load character data
+  const { data, error } = await supabase
+    .from('characters')
+    .select('*')
+    .eq('user_id', user.id)
+    .eq('id', characterId)
+    .single();
 
   if (error || !data) {
     alert('Character not found.');
