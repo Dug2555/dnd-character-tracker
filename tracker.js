@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   inventory = data.inventory || [];
   renderInventory();
 
-  document.getElementById('to-info').addEventListener('click', () => {
+  document.getElementById('to-editor').addEventListener('click', () => {
     window.location.href = `character.html?id=${id}`;
   });
   document.getElementById('back-to-characters').addEventListener('click', () => {

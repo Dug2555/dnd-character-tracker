@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>New Character</title>
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+  <script src="new.js" defer></script>
+</head>
+<body>
+  <h1>Create New Character</h1>
+
+  <label>Name: <input id="name" /></label><br>
+  <label>Class: <input id="class" /></label><br>
+  <label>Level: <input id="level" type="number" /></label><br>
+  <label>Max HP: <input id="hp-max" type="number" /></label><br>
+  <label>Notes:<br><textarea id="notes"></textarea></label><br>
+
+  <button onclick="createCharacter()">Create Character</button>
+  <button onclick="goBack()">Cancel</button>
+</body>
+</html>
