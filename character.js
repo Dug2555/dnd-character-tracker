@@ -120,8 +120,8 @@ async function loadSpells(characterId) {
       .order('level', { ascending: true });
   
     if (error) {
-      console.error('Error loading spells:', error);
-      return;
+        console.error('Error loading spells:', error.message, error.details, error.hint);
+        return;
     }
   
     const container = document.getElementById('spells');
@@ -130,6 +130,7 @@ async function loadSpells(characterId) {
       const div = document.createElement('div');
       div.innerHTML = `
         <strong>${spell.name}</strong> (Level ${spell.level})<br/>
+        Range: ${spell.range} Damage: ${spell.damage}
         <em>${spell.description || ''}</em><br/>
         Prepared: <input type="checkbox" ${spell.prepared ? 'checked' : ''} onchange="togglePrepared('${spell.id}', this.checked)">
         <hr/>
@@ -141,18 +142,22 @@ async function loadSpells(characterId) {
 async function addSpell() {
     const name = document.getElementById('spell-name').value;
     const level = parseInt(document.getElementById('spell-level').value);
+    const range = document.getElementById('spell-range').value;
     const description = document.getElementById('spell-description').value;
+    const damage = document.getElementById('spell-damage').value;
   
     const { error } = await supabase.from('spells').insert([{
-      character_id: currentCharacterId,
+      character_id: characterId,
       name,
       level,
       description,
+      range:range,
+      damage:damage,
     }]);
   
     if (error) return alert(error.message);
   
-    await loadSpells(currentCharacterId);
+    await loadSpells(characterId);
 }
   
 async function togglePrepared(spellId, value) {
