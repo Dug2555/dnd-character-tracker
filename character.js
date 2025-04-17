@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 
     renderInventory();
-      
+    await loadSpells(characterId);
 
   
   characterId = urlParams.get('id');
@@ -112,3 +112,52 @@ function goToTracker() {
     window.location.href = `tracker.html?id=${id}`;
 }
   
+async function loadSpells(characterId) {
+    const { data: spells, error } = await supabase
+      .from('spells')
+      .select('*')
+      .eq('character_id', characterId)
+      .order('level', { ascending: true });
+  
+    if (error) {
+      console.error('Error loading spells:', error);
+      return;
+    }
+  
+    const container = document.getElementById('spells');
+    container.innerHTML = '';
+    spells.forEach(spell => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <strong>${spell.name}</strong> (Level ${spell.level})<br/>
+        <em>${spell.description || ''}</em><br/>
+        Prepared: <input type="checkbox" ${spell.prepared ? 'checked' : ''} onchange="togglePrepared('${spell.id}', this.checked)">
+        <hr/>
+      `;
+      container.appendChild(div);
+    });
+}
+  
+async function addSpell() {
+    const name = document.getElementById('spell-name').value;
+    const level = parseInt(document.getElementById('spell-level').value);
+    const description = document.getElementById('spell-description').value;
+  
+    const { error } = await supabase.from('spells').insert([{
+      character_id: currentCharacterId,
+      name,
+      level,
+      description,
+    }]);
+  
+    if (error) return alert(error.message);
+  
+    await loadSpells(currentCharacterId);
+}
+  
+async function togglePrepared(spellId, value) {
+    await supabase
+      .from('spells')
+      .update({ prepared: value })
+      .eq('id', spellId);
+}
