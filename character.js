@@ -16,7 +16,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 
     renderInventory();
-    await loadSpells(characterId);
+    
 
   
   characterId = urlParams.get('id');
@@ -45,6 +45,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     alert('Character not found.');
     return;
   }
+
+  await loadSpells(characterId);
 
   // Populate form
   document.getElementById('name').value = data.name;
