@@ -23,6 +23,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('hp-temp').value = data.tempHp || 0;
   document.getElementById('hp-current').value = data.hpCurrent || data.hpMax || 0;
   document.getElementById('hp-max-display').textContent = data.hpMax || 0;
+  document.getElementById('name').textContent = data.name || "";
 });
 
 async function updateHP() {
