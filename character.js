@@ -46,7 +46,13 @@ window.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  await loadSpells(characterId);
+
+  if (characterData.can_cast_spells) {
+    document.getElementById('spells-section').style.display = 'block';
+    loadSpells(characterId);
+  } else {
+    document.getElementById('spells-section').style.display = 'none';
+  }
 
   // Populate form
   document.getElementById('name').value = data.name;

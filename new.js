@@ -10,6 +10,7 @@ async function createCharacter() {
     const level = parseInt(document.getElementById('level').value);
     const hpMax = parseInt(document.getElementById('hp-max').value);
     const notes = document.getElementById('notes').value;
+    const canCastSpells = document.getElementById('can-cast-spells').checked;
   
     const { data, error } = await supabase.from('characters').insert([{
       user_id: user.id,
@@ -20,7 +21,8 @@ async function createCharacter() {
       hpCurrent: hpMax,
       tempHp: 0,
       notes,
-      inventory: []
+      inventory: [],
+      can_cast_spells: canCastSpells,
     }]).select().single();
   
     if (error) {
