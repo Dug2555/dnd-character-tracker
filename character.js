@@ -60,6 +60,13 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('level').value = data.level;
   document.getElementById('notes').value = data.notes;
   document.getElementById('hp-max').value = data.hpMax || 0;
+  document.getElementById('stat-str').value = character.strength || 10;
+  document.getElementById('stat-dex').value = character.dexterity || 10;
+  document.getElementById('stat-con').value = character.constitution || 10;
+  document.getElementById('stat-int').value = character.intelligence || 10;
+  document.getElementById('stat-wis').value = character.wisdom || 10;
+  document.getElementById('stat-cha').value = character.charisma || 10;
+  
 });
 
 function renderInventory() {
@@ -77,30 +84,49 @@ function renderInventory() {
 }
 
 async function saveCharacter() {
-  const name = document.getElementById('name').value;
-  const charClass = document.getElementById('class').value;
-  const level = parseInt(document.getElementById('level').value);
-  const notes = document.getElementById('notes').value;
-  const hpMax = parseInt(document.getElementById('hp-max').value);
-  const canCastSpells = document.getElementById('can-cast-spells').checked;
+    const name = document.getElementById('name').value;
+    const charClass = document.getElementById('class').value;
+    const level = parseInt(document.getElementById('level').value);
+    const notes = document.getElementById('notes').value;
+    const hpMax = parseInt(document.getElementById('hp-max').value);
+    const canCastSpells = document.getElementById('can-cast-spells').checked;
+    const strength = parseInt(document.getElementById('stat-str').value);
+    const dexterity = parseInt(document.getElementById('stat-dex').value);
+    const constitution = parseInt(document.getElementById('stat-con').value);
+    const intelligence = parseInt(document.getElementById('stat-int').value);
+    const wisdom = parseInt(document.getElementById('stat-wis').value);
+    const charisma = parseInt(document.getElementById('stat-cha').value);
 
-  const { error } = await supabase
-  .from('characters')
-  .update({ name, class: charClass, level, notes, hpMax, can_cast_spells:canCastSpells })
-  .eq('id', characterId);
+    const { error } = await supabase
+    .from('characters')
+    .update({
+        name,
+        class: charClass,
+        level,
+        notes,
+        hpMax,
+        can_cast_spells:canCastSpells,
+        strength:strength,
+        dexterity:dexterity,
+        constitution:constitution,
+        intelligence:intelligence,
+        wisdom:wisdom,
+        charisma:charisma
+    })
+    .eq('id', characterId);
 
 
-  if (error) {
-    alert('Error saving character.');
-  } else {
-    alert('Character updated!');
-    if (canCastSpells) {
-        document.getElementById('spells-section').style.display = 'block';
-        loadSpells(characterId);
-      } else {
-        document.getElementById('spells-section').style.display = 'none';
-      }
-  }
+    if (error) {
+        alert('Error saving character.');
+    } else {
+        alert('Character updated!');
+        if (canCastSpells) {
+            document.getElementById('spells-section').style.display = 'block';
+            loadSpells(characterId);
+        } else {
+            document.getElementById('spells-section').style.display = 'none';
+        }
+    }
 
 
 

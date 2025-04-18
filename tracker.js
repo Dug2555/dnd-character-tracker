@@ -24,6 +24,13 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('hp-current').value = data.hpCurrent || data.hpMax || 0;
   document.getElementById('hp-max-display').textContent = data.hpMax || 0;
   document.getElementById('name').textContent = data.name || "";
+  document.getElementById('tracker-str').textContent = character.strength;
+  document.getElementById('tracker-dex').textContent = character.dexterity;
+  document.getElementById('tracker-con').textContent = character.constitution;
+  document.getElementById('tracker-int').textContent = character.intelligence;
+  document.getElementById('tracker-wis').textContent = character.wisdom;
+  document.getElementById('tracker-cha').textContent = character.charisma;
+  
 });
 
 async function updateHP() {
