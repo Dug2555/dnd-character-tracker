@@ -85,6 +85,7 @@ async function loadCharacters() {
         <em>${char.notes || ''}</em><br/>
         <a href="character.html?id=${char.id}"><button>⚙️ Open Editor</button></a>
         <a href="tracker.html?id=${char.id}"><button>⚔️ Open Player</button></a>
+        <button onclick="deleteCharacter('${character.id}')">Delete</button>
         `;
       listDiv.appendChild(div);
     });
@@ -93,4 +94,20 @@ async function loadCharacters() {
   async function logout() {
     await supabaseClient.auth.signOut();
     window.location.reload(); // Reload to reset the UI
+  }
+  
+  async function deleteCharacter(characterId) {
+    if (!confirm('Are you sure you want to delete this character? This cannot be undone.')) return;
+  
+    const { error } = await supabase
+      .from('characters')
+      .delete()
+      .eq('id', characterId);
+  
+    if (error) {
+      alert('Error deleting character: ' + error.message);
+      return;
+    }
+  
+    await loadCharacters(); // Refresh the list
   }

@@ -129,18 +129,20 @@ async function loadSpells(characterId) {
     const container = document.getElementById('spells');
     container.innerHTML = '';
     spells.forEach(spell => {
-      const div = document.createElement('div');
-      div.innerHTML = `
-        <strong>${spell.name}</strong> (Level ${spell.level})<br/>
-        Range: ${spell.range} Damage: ${spell.damage}
-        <em>${spell.description || ''}</em><br/>
-        Prepared: <input type="checkbox" ${spell.prepared ? 'checked' : ''} onchange="togglePrepared('${spell.id}', this.checked)">
-        <hr/>
-      `;
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <strong>${spell.name}</strong> (Level ${spell.level})<br/>
+            <em>${spell.description || ''}</em><br/>
+            Prepared: <input type="checkbox" ${spell.prepared ? 'checked' : ''} onchange="togglePrepared('${spell.id}', this.checked)">
+            <button onclick="deleteSpell('${spell.id}')">Delete</button>
+            <hr/>
+        `;
       container.appendChild(div);
     });
 }
   
+
+
 async function addSpell() {
     const name = document.getElementById('spell-name').value;
     const level = parseInt(document.getElementById('spell-level').value);
@@ -162,6 +164,20 @@ async function addSpell() {
     await loadSpells(characterId);
 }
   
+async function deleteSpell(spellId) {
+    const { error } = await supabase
+      .from('spells')
+      .delete()
+      .eq('id', spellId);
+  
+    if (error) {
+      alert('Error deleting spell: ' + error.message);
+      return;
+    }
+  
+    await loadSpells(currentCharacterId);
+}
+
 async function togglePrepared(spellId, value) {
     await supabase
       .from('spells')
