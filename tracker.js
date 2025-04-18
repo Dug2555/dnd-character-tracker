@@ -34,19 +34,19 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('tracker-int').textContent = data.intelligence;
   document.getElementById('tracker-wis').textContent = data.wisdom;
   document.getElementById('tracker-cha').textContent = data.charisma;
-  setMod("str");
-  setMod("dex");
-  setMod("con");
-  setMod("int");
-  setMod("wis");
-  setMod("cha");  
+  setMod("str",data.strength);
+  setMod("dex",data.dexterity);
+  setMod("con",data.constitution);
+  setMod("int",data.intelligence);
+  setMod("wis",data.wisdom);
+  setMod("cha",data.charisma);  
 });
 
-function setMod(stat){
-    document.getElementById('tracker-' + stat).textContent = character.strength;
-    mod = Math.floor((character.strength - 10) / 2);
+function setMod(statName,stat){
+    document.getElementById('tracker-' + statName).textContent = stat;
+    mod = Math.floor((stat - 10) / 2);
     sign = mod >= 0 ? '+' : '';
-    document.getElementById('tracker-'+stat+'-mod').textContent = `(${sign}${mod})`; 
+    document.getElementById('tracker-'+statName+'-mod').textContent = `(${sign}${mod})`; 
 }
 
 async function updateHP() {
