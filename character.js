@@ -60,12 +60,12 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('level').value = data.level;
   document.getElementById('notes').value = data.notes;
   document.getElementById('hp-max').value = data.hpMax || 0;
-  document.getElementById('stat-str').value = character.strength || 10;
-  document.getElementById('stat-dex').value = character.dexterity || 10;
-  document.getElementById('stat-con').value = character.constitution || 10;
-  document.getElementById('stat-int').value = character.intelligence || 10;
-  document.getElementById('stat-wis').value = character.wisdom || 10;
-  document.getElementById('stat-cha').value = character.charisma || 10;
+  document.getElementById('stat-str').value = data.strength || 10;
+  document.getElementById('stat-dex').value = data.dexterity || 10;
+  document.getElementById('stat-con').value = data.constitution || 10;
+  document.getElementById('stat-int').value = data.intelligence || 10;
+  document.getElementById('stat-wis').value = data.wisdom || 10;
+  document.getElementById('stat-cha').value = data.charisma || 10;
   
 });
 
