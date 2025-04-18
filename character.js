@@ -55,12 +55,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 
 
-  document.updateModifier('stat-str', 'mod-str');
-  document.updateModifier('stat-dex', 'mod-dex');
-  document.updateModifier('stat-con', 'mod-con');
-  document.updateModifier('stat-int', 'mod-int');
-  document.updateModifier('stat-wis', 'mod-wis');
-  document.updateModifier('stat-cha', 'mod-cha');
+
 
 
   document.getElementById('stat-str').addEventListener('input', () => updateModifier('stat-str', 'mod-str'));
@@ -83,6 +78,13 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('stat-int').value = data.intelligence || 10;
   document.getElementById('stat-wis').value = data.wisdom || 10;
   document.getElementById('stat-cha').value = data.charisma || 10;
+
+  updateModifier('stat-str', 'mod-str');
+  updateModifier('stat-dex', 'mod-dex');
+  updateModifier('stat-con', 'mod-con');
+  updateModifier('stat-int', 'mod-int');
+  updateModifier('stat-wis', 'mod-wis');
+  updateModifier('stat-cha', 'mod-cha');
   
 });
 
