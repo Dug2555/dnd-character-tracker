@@ -82,10 +82,11 @@ async function saveCharacter() {
   const level = parseInt(document.getElementById('level').value);
   const notes = document.getElementById('notes').value;
   const hpMax = parseInt(document.getElementById('hp-max').value);
+  const canCastSpells = document.getElementById('can-cast-spells').checked;
 
   const { error } = await supabase
   .from('characters')
-  .update({ name, class: charClass, level, notes, hpMax })
+  .update({ name, class: charClass, level, notes, hpMax, can_cast_spells:canCastSpells })
   .eq('id', characterId);
 
 
@@ -93,7 +94,16 @@ async function saveCharacter() {
     alert('Error saving character.');
   } else {
     alert('Character updated!');
+    if (canCastSpells) {
+        document.getElementById('spells-section').style.display = 'block';
+        loadSpells(characterId);
+      } else {
+        document.getElementById('spells-section').style.display = 'none';
+      }
   }
+
+
+
 }
 
 function addItem() {
