@@ -21,35 +21,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     window.location.href = `index.html?id=${id}`;
   });
 
-  document.getElementById('tracker-str').textContent = character.strength;
-  let mod = Math.floor((character.strength - 10) / 2);
-  let sign = mod >= 0 ? '+' : '';
-  document.getElementById('tracker-str-mod').textContent = `(${sign}${mod})`;
 
-  document.getElementById('tracker-dex').textContent = character.strength;
-  mod = Math.floor((character.strength - 10) / 2);
-  sign = mod >= 0 ? '+' : '';
-  document.getElementById('tracker-dex-mod').textContent = `(${sign}${mod})`;
-
-  document.getElementById('tracker-con').textContent = character.strength;
-  mod = Math.floor((character.strength - 10) / 2);
-  sign = mod >= 0 ? '+' : '';
-  document.getElementById('tracker-con-mod').textContent = `(${sign}${mod})`;
-
-  document.getElementById('tracker-int').textContent = character.strength;
-  mod = Math.floor((character.strength - 10) / 2);
-  sign = mod >= 0 ? '+' : '';
-  document.getElementById('tracker-int-mod').textContent = `(${sign}${mod})`;
-
-  document.getElementById('tracker-wis').textContent = character.strength;
-  mod = Math.floor((character.strength - 10) / 2);
-  sign = mod >= 0 ? '+' : '';
-  document.getElementById('tracker-wis-mod').textContent = `(${sign}${mod})`;
-
-  document.getElementById('tracker-cha').textContent = character.strength;
-  mod = Math.floor((character.strength - 10) / 2);
-  sign = mod >= 0 ? '+' : '';
-  document.getElementById('tracker-cha-mod').textContent = `(${sign}${mod})`;
 
 
   document.getElementById('hp-temp').value = data.tempHp || 0;
@@ -62,8 +34,20 @@ window.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('tracker-int').textContent = data.intelligence;
   document.getElementById('tracker-wis').textContent = data.wisdom;
   document.getElementById('tracker-cha').textContent = data.charisma;
-  
+  setMod("str");
+  setMod("dex");
+  setMod("con");
+  setMod("int");
+  setMod("wis");
+  setMod("cha");  
 });
+
+function setMod(stat){
+    document.getElementById('tracker-' + stat).textContent = character.strength;
+    mod = Math.floor((character.strength - 10) / 2);
+    sign = mod >= 0 ? '+' : '';
+    document.getElementById('tracker-'+stat+'-mod').textContent = `(${sign}${mod})`; 
+}
 
 async function updateHP() {
     const currentHP = parseInt(document.getElementById('hp-current').value);
