@@ -175,7 +175,7 @@ async function deleteSpell(spellId) {
       return;
     }
   
-    await loadSpells(currentCharacterId);
+    await loadSpells(characterId);
 }
 
 async function togglePrepared(spellId, value) {
