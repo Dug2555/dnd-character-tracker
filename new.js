@@ -42,3 +42,10 @@ async function createCharacter() {
   function goBack() {
     window.location.href = 'index.html'; // or wherever your list is
   }
+
+  function updateModifier(statId, modId) {
+    const score = parseInt(document.getElementById(statId).value) || 10;
+    const mod = Math.floor((score - 10) / 2);
+    const sign = mod >= 0 ? '+' : '';
+    document.getElementById(modId).textContent = `(${sign}${mod})`;
+  }

@@ -9,10 +9,10 @@ window.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('back-button').addEventListener('click', () => {
         window.location.href = "index.html";
     });
-      
+        
     const urlParams = new URLSearchParams(window.location.search);
     const { data: { user } } = await supabase.auth.getUser();
-    
+
 
 
     renderInventory();
@@ -53,6 +53,14 @@ window.addEventListener('DOMContentLoaded', async () => {
   } else {
     document.getElementById('spells-section').style.display = 'none';
   }
+
+  document.getElementById('stat-str').addEventListener('input', () => updateModifier('stat-str', 'mod-str'));
+  document.getElementById('stat-dex').addEventListener('input', () => updateModifier('stat-dex', 'mod-dex'));
+  document.getElementById('stat-con').addEventListener('input', () => updateModifier('stat-con', 'mod-con'));
+  document.getElementById('stat-int').addEventListener('input', () => updateModifier('stat-int', 'mod-int'));
+  document.getElementById('stat-wis').addEventListener('input', () => updateModifier('stat-wis', 'mod-wis'));
+  document.getElementById('stat-cha').addEventListener('input', () => updateModifier('stat-cha', 'mod-cha'));
+
 
   // Populate form
   document.getElementById('name').value = data.name;
@@ -226,3 +234,10 @@ async function togglePrepared(spellId, value) {
       .update({ prepared: value })
       .eq('id', spellId);
 }
+
+function updateModifier(statId, modId) {
+    const score = parseInt(document.getElementById(statId).value) || 10;
+    const mod = Math.floor((score - 10) / 2);
+    const sign = mod >= 0 ? '+' : '';
+    document.getElementById(modId).textContent = `(${sign}${mod})`;
+  }
