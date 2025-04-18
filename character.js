@@ -54,6 +54,15 @@ window.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('spells-section').style.display = 'none';
   }
 
+
+  document.updateModifier('stat-str', 'mod-str');
+  document.updateModifier('stat-dex', 'mod-dex');
+  document.updateModifier('stat-con', 'mod-con');
+  document.updateModifier('stat-int', 'mod-int');
+  document.updateModifier('stat-wis', 'mod-wis');
+  document.updateModifier('stat-cha', 'mod-cha');
+
+
   document.getElementById('stat-str').addEventListener('input', () => updateModifier('stat-str', 'mod-str'));
   document.getElementById('stat-dex').addEventListener('input', () => updateModifier('stat-dex', 'mod-dex'));
   document.getElementById('stat-con').addEventListener('input', () => updateModifier('stat-con', 'mod-con'));
