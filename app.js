@@ -99,7 +99,7 @@ async function loadCharacters() {
   async function deleteCharacter(characterId) {
     if (!confirm('Are you sure you want to delete this character? This cannot be undone.')) return;
   
-    const { error } = await supabase
+    const { error } = await supabaseClient
       .from('characters')
       .delete()
       .eq('id', characterId);
