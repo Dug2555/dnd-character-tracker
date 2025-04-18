@@ -47,7 +47,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   }
 
 
-  if (characterData.can_cast_spells) {
+  if (data.can_cast_spells) {
     document.getElementById('spells-section').style.display = 'block';
     loadSpells(characterId);
   } else {
