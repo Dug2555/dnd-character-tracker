@@ -85,7 +85,7 @@ async function loadCharacters() {
         <em>${char.notes || ''}</em><br/>
         <a href="character.html?id=${char.id}"><button>⚙️ Open Editor</button></a>
         <a href="tracker.html?id=${char.id}"><button>⚔️ Open Player</button></a>
-        <button onclick="deleteCharacter('${character.id}')">Delete</button>
+        <button onclick="deleteCharacter('${char.id}')">Delete</button>
         `;
       listDiv.appendChild(div);
     });
