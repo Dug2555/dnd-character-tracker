@@ -4,10 +4,25 @@
   <title>Live Tracker</title>
   <script src="https://unpkg.com/@supabase/supabase-js"></script>
   <script src="tracker.js" defer></script>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <button id="back-to-characters">← Back to Character List</button>
-  <button id="to-editor">← To Editor</button>
+    <div id=""top-nav">
+        <button id="back-to-characters">← Back to Character List</button>
+        <button id="to-editor">← To Editor</button>
+    </div>
+  
+    <div id="tracker-content">
+        <!-- Each section below this will be treated as a full page -->
+        <section class="tracker-page" id="page-1">
+          <!-- We'll build this out in Step 2 -->
+        </section>
+      
+        <section class="tracker-page" id="page-2">
+          <p>Placeholder for next page...</p>
+        </section>
+      </div>
+  
   <h1>
     <span id="name">Live Tracker</span>
     /

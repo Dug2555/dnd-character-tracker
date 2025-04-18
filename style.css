@@ -20,3 +20,42 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   }
+
+  /* Fixed top bar */
+#top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 1000;
+  }
+  
+  #top-nav button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  #tracker-content {
+    margin-top: 60px; /* Makes space for the fixed nav */
+  }
+  
+  /* Each full-height page section */
+  .tracker-page {
+    min-height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    border-bottom: 1px solid #ccc;
+  }
